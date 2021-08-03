@@ -1,0 +1,6 @@
+bmpnegative
+-----------
+
+A simple program to create the negative of a bitmap image.
+Implementations in C, CUDA, HIP and OpenCL.
+
