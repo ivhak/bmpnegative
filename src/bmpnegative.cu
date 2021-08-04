@@ -3,6 +3,18 @@
 extern "C" {
 #include "bitmap.h"
 }
+
+#define cudaErrorCheck(ans) { gpuAssert((ans), __FILE__, __LINE__);  }
+inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=true)
+{
+    if (code != cudaSuccess)
+    {
+        fprintf(stderr,"GPUassert: %s %s %s %d\n", cudaGetErrorName(code), cudaGetErrorString(code), file, line);
+        if (abort) exit(code);
+
+    }
+}
+
 __global__ void negative_kernel(pixel *rawdata_in, pixel *rawdata_out, int width, int height)
 {
     const int x = blockIdx.x * blockDim.x + threadIdx.x;
@@ -41,6 +53,9 @@ int main(int argc, char *argv[]) {
 
     negative_kernel<<<grid_size, block_size>>>(d_rawdata_in, d_rawdata_out, width, height);
 
+    // Check for error
+    cudaError_t error = cudaGetLastError();
+    cudaErrorCheck(error);
 
     cudaMemcpy(out->rawdata, d_rawdata_out, size_of_all_pixels, cudaMemcpyDeviceToHost);
 

@@ -4,3 +4,67 @@ bmpnegative
 A simple program to create the negative of a bitmap image.
 Implementations in C, CUDA, HIP and OpenCL.
 
+Building on eX³
+---------------
+
+The following explanations assume that this repository is cloned into
+$HOME/bmpnegative on eX³, and that you are logged into the default node
+(srl-login1). If not, change the commands accordingly.
+
+Currently, the ROCm toolchain can not be loaded via `modules`, which makes
+compilation a little tedious. The toolchain is installed on n004, so that node
+will be used for compilation.
+
+* bmpnegative-serial
+
+  The only thing required to build the serial version is a C compiler.
+
+    $ cd bmpnegative
+    $ make serial
+
+
+* bmpnegative-hip
+
+  To compile the HIP code the ROCm toolchain is required. It is installed on
+  n004 (mi100q). Run the following commands to compile for AMD and produce the
+  binary `bmpnegative-hip`:
+
+    $ rlogin n004
+    $ cd bmpnegative
+    $ make hip
+
+  To compile the HIP code for NVIDIA the CUDA toolchain is needed, as well as
+  the ROCm toolchain. This can be loaded using `modules`. Run the
+  following commands to produce the binary `bmpnegative-hip-nvidia`:
+
+    $ rlogin n004
+    $ cd bmpnegative
+    $ modules load cuda11.3/toolkit/11.3.0
+    $ make hip-nvidia
+
+
+* bmpnegative-opencl
+
+  The OpenCL code is compiled using the ROCm version of OpenCL, i.e., the ROCm
+  toolchain is needed. Just like with `bmpnegative-hip`, run the following
+  commands to produce the binary `bmpnegative-opencl`:
+
+    $ rlogin n004
+    $ cd bmpnegative
+    $ make opencl
+
+* bmpnegative-cuda
+
+  To compile the CUDA code, the only thing needed is the CUDA toolchain. To
+  compile the code an produce the binary `bmpnegative-cuda`, run the following
+  commands:
+
+    $ cd bmpnegative
+    $ modules load cuda11.3/toolkit/11.3.0
+    $ make cuda
+
+
+Usage
+-----
+
+    ./bmpnegative-[serial|cuda|hip|opencl] <input.bmp> <output.bmp>
