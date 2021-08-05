@@ -49,8 +49,8 @@ int main(int argc, char *argv[]) {
     dim3 grid_size((width  + block_size.x - 1) / block_size.x,
                    (height + block_size.y - 1) / block_size.y);
 
-    HIP_CHECK(hipLaunchKernelGGL(negative_kernel, dim3(grid_size), dim3(block_size),
-                                 0, 0, d_rawdata_in, d_rawdata_out, width, height));
+    hipLaunchKernelGGL(negative_kernel, dim3(grid_size), dim3(block_size),
+                       0, 0, d_rawdata_in, d_rawdata_out, width, height);
 
 
     HIP_CHECK(hipMemcpy(out->rawdata, d_rawdata_out, size_of_all_pixels, hipMemcpyDeviceToHost));
