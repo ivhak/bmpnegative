@@ -11,7 +11,7 @@ The following explanations assume that this repository is cloned into
 $HOME/bmpnegative on eX³, and that you are logged into the default node
 (srl-login1). If not, change the commands accordingly.
 
-Currently, the ROCm toolchain can not be loaded via `modules`, which makes
+Currently, the ROCm toolchain can not be loaded via `module`, which makes
 compilation a little tedious. The toolchain is installed on n004, so that node
 will be used for compilation.
 
@@ -23,23 +23,25 @@ will be used for compilation.
     $ make serial
 
 
-* bmpnegative-hip
+* bmpnegative-hip-amd
 
   To compile the HIP code the ROCm toolchain is required. It is installed on
   n004 (mi100q). Run the following commands to compile for AMD and produce the
-  binary `bmpnegative-hip`:
+  binary `bmpnegative-hip-amd`:
 
     $ rlogin n004
     $ cd bmpnegative
     $ make hip
 
+* bmpnegative-hip-nvidia
+
   To compile the HIP code for NVIDIA the CUDA toolchain is needed, as well as
-  the ROCm toolchain. This can be loaded using `modules`. Run the
+  the ROCm toolchain. This can be loaded using `module`. Run the
   following commands to produce the binary `bmpnegative-hip-nvidia`:
 
     $ rlogin n004
     $ cd bmpnegative
-    $ modules load cuda11.3/toolkit/11.3.0
+    $ module load cuda11.0/toolkit/11.0.3
     $ make hip-nvidia
 
 
@@ -60,7 +62,7 @@ will be used for compilation.
   commands:
 
     $ cd bmpnegative
-    $ modules load cuda11.3/toolkit/11.3.0
+    $ module load cuda11.0/toolkit/11.0.3
     $ make cuda
 
 
