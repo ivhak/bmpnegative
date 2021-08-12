@@ -69,4 +69,4 @@ will be used for compilation.
 Usage
 -----
 
-    ./bmpnegative-[serial|cuda|hip|hip-nvidia|opencl] <input.bmp> <output.bmp>
+    ./bmpnegative-[serial|cuda|hip-amd|hip-nvidia|opencl] <input.bmp> <output.bmp>
